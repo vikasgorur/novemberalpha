@@ -67,7 +67,8 @@ function refresh() {
     return `<div class="nato-word col-sm-4"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
   }).join(''));
 
-  history.replaceState({}, "", window.location.href + word);
+  const appRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
+  history.replaceState({}, "", `${appRoot}/${word}`);
   fitText();
 }
 
