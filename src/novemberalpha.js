@@ -1,3 +1,5 @@
+"use strict";
+
 const natoAlphabet = {
   a: 'alpha',
   b: 'bravo',
@@ -49,7 +51,7 @@ $(document).ready(function() {
     const word = $("#word").val();
     
     $("#result").html(pronounce(word).map(p => {
-      return `<div class="nato-word col-sm-4">${p}</div>`;
+      return `<div class="nato-word col-sm-4"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
     }).join(''));
       
   });  
