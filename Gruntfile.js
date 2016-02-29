@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
-   grunt.initConfig({
+  require("load-grunt-tasks")(grunt);
+  
+  grunt.initConfig({
       browserify: {
          dist: {
             options: {
@@ -10,14 +12,25 @@ module.exports = function (grunt) {
                ]
             },
             files: {
-               "./dist/novemberalpha.js": ["./src/novemberalpha.js"]
+               "./public/novemberalpha.js": ["./src/novemberalpha.js"]
             }
          }
+      },
+      babel: {
+        options: {
+          presets: ["es2015"],
+          sourceMap: true
+        },
+        dist: {
+          files: {
+            "dist/app.js": "src/app.js"
+          }
+        }
       },
       watch: {
          scripts: {
             files: ["./src/*.js"],
-            tasks: ["browserify"]
+            tasks: ["browserify", "babel"]
          }
       }
    });

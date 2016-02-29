@@ -1,10 +1,16 @@
 {
-    "name": "novemberalpha",
-    "main": "dist/novemberalpha.js",
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "babelify": "^6.1.0",
-        "grunt-browserify": "^3.8.0",
-        "grunt-contrib-watch": "^0.6.1"
-    }
+  "name": "novemberalpha",
+  "main": "dist/novemberalpha.js",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babelify": "^6.1.0",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.4.0"
+  },
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
