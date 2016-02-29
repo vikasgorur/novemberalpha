@@ -35,7 +35,7 @@ const natoAlphabet = {
  */
 function pronounce(word) {
   let result = [];
-	for (var c of word) {
+  for (var c of word) {
     if (natoAlphabet[c]) {
       result.push(natoAlphabet[c]);
     } else {
@@ -51,23 +51,40 @@ function pronounce(word) {
  */
 function fitText() {
   // pixels available for text
-  let availHeight = $(window).height() - $("#result").position().top;
-  let resultHeight = $("#result").height();
+  const availHeight = $(window).height() - $("#result").position().top;
+  const resultHeight = $("#result").height();
   
   if (resultHeight > availHeight) {
-    let fontSize = (availHeight / resultHeight) * parseFloat($(".nato-word").css("font-size"));
+    const fontSize = (availHeight / resultHeight) * parseFloat($(".nato-word").css("font-size"));
     $(".nato-word").css("font-size", fontSize + "px"); 
   }        
 }
 
-$(document).ready(function() {
-  $("#word").keyup(e => {
-    const word = $("#word").val();
-    
-    $("#result").html(pronounce(word).map(p => {
-      return `<div class="nato-word col-sm-4"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
-    }).join(''));
+function refresh() {
+  const word = $("#word").val();
+  
+  $("#result").html(pronounce(word).map(p => {
+    return `<div class="nato-word col-sm-4"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
+  }).join(''));
 
-    fitText();
-  });  
+  history.replaceState({}, "", window.location.href + word);
+  fitText();
+}
+
+/**
+ * Make URLs like /novemberalpha/wtf work.
+ */
+function prefillInput() {
+  const path = window.location.pathname;
+  const input = path.substr(path.lastIndexOf("/") + 1, path.length);
+  
+  if (input) {
+    $("#word").val(input);
+    refresh();
+  }
+}
+
+$(document).ready(function() {
+  prefillInput();
+  $("#word").keyup(e => refresh());
 });

@@ -75,15 +75,34 @@ function fitText() {
   }
 }
 
+function refresh() {
+  var word = $("#word").val();
+
+  $("#result").html(pronounce(word).map(function (p) {
+    return '<div class="nato-word col-sm-4"><span class="first-letter">' + p[0] + '</span>' + p.substr(1, p.length) + '</div>';
+  }).join(''));
+
+  history.replaceState({}, "", window.location.href + word);
+  fitText();
+}
+
+/**
+ * Make URLs like /novemberalpha/wtf work.
+ */
+function prefillInput() {
+  var path = window.location.pathname;
+  var input = path.substr(path.lastIndexOf("/") + 1, path.length);
+
+  if (input) {
+    $("#word").val(input);
+    refresh();
+  }
+}
+
 $(document).ready(function () {
+  prefillInput();
   $("#word").keyup(function (e) {
-    var word = $("#word").val();
-
-    $("#result").html(pronounce(word).map(function (p) {
-      return '<div class="nato-word col-sm-4"><span class="first-letter">' + p[0] + '</span>' + p.substr(1, p.length) + '</div>';
-    }).join(''));
-
-    fitText();
+    return refresh();
   });
 });
 
