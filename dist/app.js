@@ -21,6 +21,8 @@ app.use((0, _morgan2.default)('combined', { stream: accessLogStream }));
 
 app.use(_express2.default.static('public'));
 
+app.set('trust proxy', true);
+
 app.get(/.*/, function (req, res) {
   res.sendfile('index.html', { root: './public' });
 });
