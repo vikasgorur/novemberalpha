@@ -66,8 +66,8 @@ function pronounce(word) {
  */
 function fitText() {
   // pixels available for text
-  var availHeight = $(window).height() - $("#result").position().top;
-  var resultHeight = $("#result").height();
+  var availHeight = $(window).height() - $(".result-area").position().top;
+  var resultHeight = $(".result-area").height();
 
   if (resultHeight > availHeight) {
     var fontSize = availHeight / resultHeight * parseFloat($(".nato-word").css("font-size"));
@@ -76,15 +76,23 @@ function fitText() {
 }
 
 function refresh() {
-  var word = $("#word").val();
+  var words = $("#words").val().split(" ");
 
-  $("#result").html(pronounce(word).map(function (p) {
-    return '<div class="nato-word col-sm-4"><span class="first-letter">' + p[0] + '</span>' + p.substr(1, p.length) + '</div>';
-  }).join(''));
+  $(".result-area").empty();
+
+  for (var i = 0; i < words.length; i++) {
+    $(".result-area").append($('<div class="word-' + i + '"></div>'));
+
+    var word_i = $('.word-' + i);
+    word_i.css("flex", i);
+    word_i.html(pronounce(words[i]).map(function (p) {
+      return '<div class="nato-word"><span class="first-letter">' + p[0] + '</span>' + p.substr(1, p.length) + '</div>';
+    }).join(''));
+  }
 
   var appRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
-  history.replaceState({}, "", appRoot + '/' + word);
-  fitText();
+  history.replaceState({}, "", appRoot + '/' + words.join(" "));
+  //fitText();
 }
 
 /**
@@ -92,17 +100,17 @@ function refresh() {
  */
 function prefillInput() {
   var path = window.location.pathname;
-  var input = path.substr(path.lastIndexOf("/") + 1, path.length);
+  var input = decodeURIComponent(path.substr(path.lastIndexOf("/") + 1, path.length));
 
   if (input) {
-    $("#word").val(input);
+    $("#words").val(input);
     refresh();
   }
 }
 
 $(document).ready(function () {
   prefillInput();
-  $("#word").keyup(function (e) {
+  $("#words").keyup(function (e) {
     return refresh();
   });
 });

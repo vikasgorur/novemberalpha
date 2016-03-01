@@ -51,8 +51,8 @@ function pronounce(word) {
  */
 function fitText() {
   // pixels available for text
-  const availHeight = $(window).height() - $("#result").position().top;
-  const resultHeight = $("#result").height();
+  const availHeight = $(window).height() - $(".result-area").position().top;
+  const resultHeight = $(".result-area").height();
   
   if (resultHeight > availHeight) {
     const fontSize = (availHeight / resultHeight) * parseFloat($(".nato-word").css("font-size"));
@@ -61,15 +61,23 @@ function fitText() {
 }
 
 function refresh() {
-  const word = $("#word").val();
+  const words = $("#words").val().split(" ");
   
-  $("#result").html(pronounce(word).map(p => {
-    return `<div class="nato-word col-sm-4"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
-  }).join(''));
-
+  $(".result-area").empty();
+  
+  for (let i = 0; i < words.length; i++) {
+    $(".result-area").append($(`<div class="word-${i}"></div>`));
+    
+    const word_i = $(`.word-${i}`);
+    word_i.css("flex", i);
+    word_i.html(pronounce(words[i]).map(p => {
+      return `<div class="nato-word"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
+    }).join(''));    
+  }
+   
   const appRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
-  history.replaceState({}, "", `${appRoot}/${word}`);
-  fitText();
+  history.replaceState({}, "", `${appRoot}/${words.join(" ")}`);
+  //fitText();
 }
 
 /**
@@ -77,15 +85,15 @@ function refresh() {
  */
 function prefillInput() {
   const path = window.location.pathname;
-  const input = path.substr(path.lastIndexOf("/") + 1, path.length);
+  const input = decodeURIComponent(path.substr(path.lastIndexOf("/") + 1, path.length));
   
   if (input) {
-    $("#word").val(input);
+    $("#words").val(input);
     refresh();
   }
 }
 
 $(document).ready(function() {
   prefillInput();
-  $("#word").keyup(e => refresh());
+  $("#words").keyup(e => refresh());
 });
