@@ -75,8 +75,16 @@ function fitText() {
   }
 }
 
+function majorKong() {
+  window.location.href = "https://www.youtube.com/watch?v=JlSQAZEp3PA";
+}
+
 function refresh() {
   var words = $("#words").val().split(" ");
+
+  if (words.join(" ").toLowerCase() === "wing attack plan r") {
+    majorKong();
+  }
 
   $(".result-area").empty();
 
