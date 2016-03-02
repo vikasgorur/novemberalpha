@@ -47,16 +47,16 @@ function pronounce(word) {
 };
 
 /**
- * Make sure that all the text fits vertically within the window.
+ * Make sure that all the text fits vertically within the supplied container.
  */
-function fitText() {
+function fitText($container) {
   // pixels available for text
-  const availHeight = $(window).height() - $(".result-area").position().top;
-  const resultHeight = $(".result-area").height();
+  const availHeight = $(window).height() - $container.position().top;
+  const resultHeight = $container.height();
   
   if (resultHeight > availHeight) {
     const fontSize = (availHeight / resultHeight) * parseFloat($(".nato-word").css("font-size"));
-    $(".nato-word").css("font-size", fontSize + "px"); 
+    $container.css("font-size", fontSize + "px"); 
   }        
 }
 
@@ -76,16 +76,19 @@ function refresh() {
   for (let i = 0; i < words.length; i++) {
     $(".result-area").append($(`<div class="word-${i}"></div>`));
     
-    const word_i = $(`.word-${i}`);
-    word_i.css("flex", i);
-    word_i.html(pronounce(words[i]).map(p => {
-      return `<div class="nato-word"><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
-    }).join(''));    
+    const $word_i = $(`.word-${i}`);
+    $word_i.css("flex", i);
+    $word_i.css("height", "100%");
+    
+    $word_i.html(pronounce(words[i]).map(p => {
+      return `<div><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
+    }).join(''));
+    
+    fitText($word_i);
   }
    
   const appRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
   history.replaceState({}, "", `${appRoot}/${words.join(" ")}`);
-  //fitText();
 }
 
 /**
