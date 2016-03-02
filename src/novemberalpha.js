@@ -65,7 +65,7 @@ function majorKong() {
 }
 
 function refresh() {
-  const words = $("#words").val().split(" ");
+  const words = $("#words").val().toLowerCase().split(" ");
   
   if (words.join(" ").toLowerCase() === "wing attack plan r") {
     majorKong();

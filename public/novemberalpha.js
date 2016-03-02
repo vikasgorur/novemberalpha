@@ -80,7 +80,7 @@ function majorKong() {
 }
 
 function refresh() {
-  var words = $("#words").val().split(" ");
+  var words = $("#words").val().toLowerCase().split(" ");
 
   if (words.join(" ").toLowerCase() === "wing attack plan r") {
     majorKong();
