@@ -9,6 +9,11 @@
     align-items: center;
 }
 
+.input-box {
+  margin-left: 25%;
+  width: 50%;  
+}
+
 #words {
     margin-top: 2em;
     margin-bottom: 2em;
