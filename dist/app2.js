@@ -33,17 +33,11 @@ for (var name in assets) {
 };
 
 _http2.default.createServer(options, function (request, response) {
-  console.log(assets);
-  if (request.url === '/') {
-    for (var name in assets) {
-      var push = response.push('/' + name);
-      push.end(assets[name]);
-    }
-
-    response.end(index);
-  } else {
-    response.writeHead(404);
-    response.end();
+  for (var name in assets) {
+    var push = response.push('/' + name);
+    push.end(assets[name]);
   }
+
+  response.end(index);
 }).listen(8002);
 //# sourceMappingURL=app2.js.map

@@ -26,16 +26,10 @@ for (let name in assets) {
 };
 
 http2.createServer(options, function(request, response) {
-  console.log(assets);
-  if (request.url === '/') {
-    for (let name in assets) {
-      const push = response.push(`/${name}`);
-      push.end(assets[name]);
-    }
-    
-    response.end(index);
-  } else {
-    response.writeHead(404);
-    response.end();
+  for (let name in assets) {
+    const push = response.push(`/${name}`);
+    push.end(assets[name]);
   }
+  
+  response.end(index);
 }).listen(8002);
