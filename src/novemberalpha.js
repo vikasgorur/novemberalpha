@@ -53,40 +53,40 @@ function fitText($container) {
   // pixels available for text
   const availHeight = $(window).height() - $container.position().top;
   const resultHeight = $container.height();
-  
+
   if (resultHeight > availHeight) {
     const fontSize = (availHeight / resultHeight) * parseFloat($(".result-area").css("font-size"));
-    $container.css("font-size", fontSize + "px"); 
-  }        
+    $container.css("font-size", fontSize + "px");
+  }
 }
 
 function majorKong() {
-  window.location.href = "https://www.youtube.com/watch?v=JlSQAZEp3PA";  
+  window.location.href = "https://www.youtube.com/watch?v=JlSQAZEp3PA";
 }
 
 function refresh() {
   const words = $("#words").val().toLowerCase().split(" ");
-  
+
   if (words.join(" ").toLowerCase() === "wing attack plan r") {
     majorKong();
   }
-  
+
   $(".result-area").empty();
-  
+
   for (let i = 0; i < words.length; i++) {
     $(".result-area").append($(`<div class="word-${i}"></div>`));
-    
+
     const $word_i = $(`.word-${i}`);
     $word_i.css("flex", i);
     $word_i.css("height", "100%");
-    
+
     $word_i.html(pronounce(words[i]).map(p => {
       return `<div><span class="first-letter">${p[0]}</span>${p.substr(1, p.length)}</div>`;
     }).join(''));
-    
+
     fitText($word_i);
   }
-   
+
   const appRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
   history.replaceState({}, "", `${appRoot}/${words.join(" ")}`);
 }
@@ -97,7 +97,7 @@ function refresh() {
 function prefillInput() {
   const path = window.location.pathname;
   const input = decodeURIComponent(path.substr(path.lastIndexOf("/") + 1, path.length));
-  
+
   if (input) {
     $("#words").val(input);
     refresh();
