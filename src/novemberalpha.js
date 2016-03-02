@@ -55,7 +55,7 @@ function fitText($container) {
   const resultHeight = $container.height();
   
   if (resultHeight > availHeight) {
-    const fontSize = (availHeight / resultHeight) * parseFloat($(".nato-word").css("font-size"));
+    const fontSize = (availHeight / resultHeight) * parseFloat($(".result-area").css("font-size"));
     $container.css("font-size", fontSize + "px"); 
   }        
 }
