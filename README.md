@@ -1,9 +1,14 @@
 # novemberalpha
 An app that tells you how to pronounce a word using the NATO phonetic alphabet.
 
-# Usage
+# Development
 ```bash
-
 $ npm install
-$ open index.html
+$ grunt
+$ node dist/app.js
 ```
+
+# Demo
+See it [live](http://vikasgorur.folklore.io/novemberalpha/).
+
+![screencast](https://github.com/vikasgorur/novemberalpha/raw/master/screencast.gif)
