@@ -106,5 +106,5 @@ function prefillInput() {
 
 $(document).ready(function() {
   prefillInput();
-  $("#words").keypress(e => refresh());
+  $("#words").keyup(e => refresh());
 });

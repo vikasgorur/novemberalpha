@@ -121,7 +121,7 @@ function prefillInput() {
 
 $(document).ready(function () {
   prefillInput();
-  $("#words").keypress(function (e) {
+  $("#words").keyup(function (e) {
     return refresh();
   });
 });
