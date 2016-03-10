@@ -22,7 +22,7 @@ let index;
 
 for (let name in assets) {
   assets[name] = fs.readFileSync(`public/${name}`, {encoding: 'utf8'});
-  index = fs.readFileSync('public/index.html', {encoding: 'utf8'});  
+  index = fs.readFileSync('public/index.html', {encoding: 'utf8'});
 };
 
 http2.createServer(options, function(request, response) {
@@ -30,6 +30,6 @@ http2.createServer(options, function(request, response) {
     const push = response.push(`/${name}`);
     push.end(assets[name]);
   }
-  
+
   response.end(index);
 }).listen(8002);
