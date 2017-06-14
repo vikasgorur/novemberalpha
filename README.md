@@ -9,6 +9,6 @@ $ node dist/app.js
 ```
 
 # Demo
-See it [live](http://vikasgorur.folklore.io/novemberalpha/).
+See it [live](http://vikasgorur.in/novemberalpha/).
 
 ![screencast](https://github.com/vikasgorur/novemberalpha/raw/master/screencast.gif)
