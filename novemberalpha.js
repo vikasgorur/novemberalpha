@@ -61,7 +61,7 @@ function fitText($container) {
 }
 
 function majorKong() {
-  window.location.href = "https://www.youtube.com/watch?v=JlSQAZEp3PA";
+  window.location.href = "https://www.youtube.com/watch?v=3edi2Wkr5YI";
 }
 
 function refresh() {
